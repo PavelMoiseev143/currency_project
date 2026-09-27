@@ -18,6 +18,7 @@ def get_currency_rate(currency):
     else:
         print("Такой валюты нет. Попробуйте ещё раз.")
 
+
 def convert_to_rub(amount, currency):
     url = "https://www.cbr-xml-daily.ru/daily_json.js"
     response = requests.get(url)
@@ -30,17 +31,35 @@ def convert_to_rub(amount, currency):
     else:
         print("Такой валюты нет. Попробуйте ещё раз.")
 
-if __name__ == "__main__":
-    print("1 - Узнать курс валюты")
-    print("2 - Конвертировать валюту в рубли")
-    choice = input("Выберите действие (1 или 2): ")
 
-    if choice == "1":
-        currency = input("Введите код валюты (например, USD): ")
-        get_currency_rate(currency)
-    elif choice == "2":
-        amount = float(input("Введите сумму: "))
-        currency = input("Введите код валюты (например, USD): ")
-        convert_to_rub(amount, currency)
-    else:
-        print("Неверный выбор.")
+def list_currencies():
+    url = "https://www.cbr-xml-daily.ru/daily_json.js"
+    response = requests.get(url)
+    data = response.json()
+
+    for code, valute in data["Valute"].items():
+        print(f"{code} - {valute['Name']}: {valute['Value']} руб.")
+
+
+if __name__ == "__main__":
+    while True:
+        print("1 - Узнать курс валюты")
+        print("2 - Конвертировать валюту в рубли")
+        print("3 - Показать все валюты")
+        print("0 - Выход")
+        choice = input("Выберите действие (1,2 или 3): ")
+
+        if choice == "1":
+            currency = input("Введите код валюты (например, USD): ")
+            get_currency_rate(currency)
+        elif choice == "2":
+            amount = float(input("Введите сумму: "))
+            currency = input("Введите код валюты (например, USD): ")
+            convert_to_rub(amount, currency)
+        elif choice == "3":
+            list_currencies()
+        elif choice == "0":
+            print("До свидания!")
+            break
+        else:
+            print("Неверный выбор.")

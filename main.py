@@ -1,6 +1,3 @@
-from unittest import result
-from urllib import response
-
 import requests
 
 
@@ -43,11 +40,11 @@ def list_currencies():
 
 if __name__ == "__main__":
     while True:
-        print("1 - Узнать курс валюты")
+        print("\n1 - Узнать курс валюты")
         print("2 - Конвертировать валюту в рубли")
         print("3 - Показать все валюты")
         print("0 - Выход")
-        choice = input("Выберите действие (1,2 или 3): ")
+        choice = input("Выберите действие (0,1,2 или 3): ")
 
         if choice == "1":
             currency = input("Введите код валюты (например, USD): ")
